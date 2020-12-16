@@ -1,0 +1,17 @@
+{
+  "name": "nobori",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "SEE LICENSE IN none",
+  "devDependencies": {
+    "snowpack": "^2.18.4"
+  },
+  "dependencies": {
+    "three": "^0.123.0"
+  }
+}
