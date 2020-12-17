@@ -392,7 +392,7 @@
 			function togglePins() {
 
 				pins = pinsFormation[ ~ ~ ( Math.random() * pinsFormation.length ) ];
-
+        console.log(pins);
 			}
 
 			let container, stats;
@@ -446,9 +446,8 @@
 				scene.add( light );
 
 				// cloth material
-/*
 				const loader = new THREE.TextureLoader();
-				const clothTexture = loader.load( 'textures/patterns/circuit_pattern.png' );
+				const clothTexture = loader.load( './circuit_pattern.png' );
 				clothTexture.anisotropy = 16;
 
 				const clothMaterial = new THREE.MeshLambertMaterial( {
@@ -456,15 +455,14 @@
 					side: THREE.DoubleSide,
 					alphaTest: 0.5
 				} );
-*/
+
 				// cloth geometry
 
 				clothGeometry = new THREE.ParametricBufferGeometry( clothFunction, cloth.w, cloth.h );
 
 				// cloth mesh
 
-				object = new THREE.Mesh( clothGeometry);
-				//object = new THREE.Mesh( clothGeometry, clothMaterial );
+				object = new THREE.Mesh( clothGeometry, clothMaterial );
 				object.position.set( 0, 0, 0 );
 				object.castShadow = true;
 				scene.add( object );
