@@ -9,9 +9,9 @@
   "author": "",
   "license": "SEE LICENSE IN none",
   "devDependencies": {
-    "snowpack": "^2.18.4"
+    "snowpack": "^2.18.5"
   },
   "dependencies": {
-    "three": "^0.123.0"
+    "three": "^0.124.0"
   }
 }

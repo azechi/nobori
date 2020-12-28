@@ -20,7 +20,11 @@ import {Cloth} from './cloth.js';
 // Real-time Cloth Animation http://www.darwin3d.com/gamedev/articles/col0599.pdf
 
 
-function plane( width, height ) {
+const restDistance = 25;
+const xSegs = 10;
+const ySegs = 10;
+
+const clothFunction = (function plane( width, height ) {
 
   return function ( u, v, target ) {
 
@@ -32,12 +36,7 @@ function plane( width, height ) {
 
   };
 
-}
-const restDistance = 25;
-const xSegs = 10;
-const ySegs = 10;
-
-const clothFunction = plane( restDistance * xSegs, restDistance * ySegs );
+})( restDistance * xSegs, restDistance * ySegs );
 
 const MASS = 0.1;
 const cloth = new Cloth( xSegs, ySegs, restDistance, MASS, clothFunction );
@@ -153,10 +152,6 @@ function simulate( now ) {
 
 }
 
-/* testing cloth simulation */
-
-pins = []; // cut the rope ;)
-pins = [ 0, cloth.w ]; // classic 2 pins
 pins = [...Array(cloth.w + 1).keys()]
 
 let container, stats;
@@ -184,7 +179,18 @@ function init() {
 
   // cloth material
   const loader = new THREE.TextureLoader();
-  const clothTexture = loader.load( './circuit_pattern.png' );
+  let clothTexture = loader.load( './circuit_pattern.png' );
+
+  //
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = "rgb(0, 0, 255)";
+  ctx.font = "100px serif";
+  ctx.fillText("おさんぽ", 0, canvas.height / 2);
+
+  clothTexture = new THREE.Texture(canvas); 
+  clothTexture.needsUpdate = true;
+  //
   clothTexture.anisotropy = 16;
 
   const clothMaterial = new THREE.MeshLambertMaterial( {
@@ -204,12 +210,13 @@ function init() {
   object.castShadow = true;
   scene.add( object );
 
+  
   object.customDepthMaterial = new THREE.MeshDepthMaterial( {
     depthPacking: THREE.RGBADepthPacking,
     map: clothTexture,
     alphaTest: 0.5
   } );
-
+  
   
   // poles
 
