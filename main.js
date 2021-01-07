@@ -150,6 +150,9 @@ function simulate( now ) {
 
   }
 
+
+  nobori.rotation.y += 0.01;
+
 }
 
 pins = [...Array(cloth.w + 1).keys()]
@@ -159,6 +162,8 @@ let camera, scene, renderer;
 
 let clothGeometry;
 let object;
+
+let nobori;
 
 init();
 animate( 0 );
@@ -176,6 +181,10 @@ function init() {
 
   // lights
   scene.add( new THREE.AmbientLight( 0x666666 ) );
+
+  // nobori-group
+  nobori = new THREE.Group();
+  scene.add(nobori);
 
   // cloth material
   const loader = new THREE.TextureLoader();
@@ -206,10 +215,10 @@ function init() {
   // cloth mesh
 
   object = new THREE.Mesh( clothGeometry, clothMaterial );
-  object.position.set( 0, 0, 0 );
+  object.position.set( 125, 0, 0 );
   object.castShadow = true;
-  scene.add( object );
-
+  //scene.add( object );
+  nobori.add(object);
   
   object.customDepthMaterial = new THREE.MeshDepthMaterial( {
     depthPacking: THREE.RGBADepthPacking,
@@ -224,26 +233,21 @@ function init() {
   const poleMat = new THREE.MeshLambertMaterial();
 
   let mesh = new THREE.Mesh( poleGeo, poleMat );
-  mesh.position.x = - 125;
+  mesh.position.x = 0;
   mesh.position.y = - 62;
   mesh.receiveShadow = true;
   mesh.castShadow = true;
-  scene.add( mesh );
-
-  mesh = new THREE.Mesh( poleGeo, poleMat );
-  mesh.position.x = 125;
-  mesh.position.y = - 62;
-  mesh.receiveShadow = true;
-  mesh.castShadow = true;
-  scene.add( mesh );
+  //scene.add( mesh );
+  nobori.add(mesh);
 
   // ポールの横棒
   mesh = new THREE.Mesh( new THREE.BoxBufferGeometry( 255, 5, 5 ), poleMat );
   mesh.position.y = - 250 + ( 750 / 2 );
-  mesh.position.x = 0;
+  mesh.position.x = 125;
   mesh.receiveShadow = true;
   mesh.castShadow = true;
-  scene.add( mesh );
+  //scene.add( mesh );
+  nobori.add(mesh);
 
   // ポールの台
   const gg = new THREE.BoxBufferGeometry( 10, 10, 10 );
