@@ -199,7 +199,7 @@ function init() {
   const ctx = canvas.getContext('2d');
   ctx.fillStyle = "rgb(0, 0, 255)";
   ctx.font = "100px serif";
-  ctx.fillText("おさんぽ", 0, canvas.height / 2);
+  ctx.fillText("あ", 0, canvas.height / 2);
 
   clothTexture = new THREE.Texture(canvas); 
   clothTexture.needsUpdate = true;
