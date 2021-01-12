@@ -1,3 +1,9 @@
+// 複製元 https://raw.githubusercontent.com/mrdoob/three.js/bff1f2485a1562cf4808e2c9e978b6cc7d9bb49f/examples/jsm/controls/OrbitControls.js
+// Copyright © 2010-2021 three.js authors 
+// https://raw.githubusercontent.com/mrdoob/three.js/75406c631355980994186c84316c606140ac045c/LICENSE
+
+// 改変あり
+
 import {
 	EventDispatcher,
 	MOUSE,
@@ -7,6 +13,9 @@ import {
 	Vector2,
 	Vector3
 } from './web_modules/three.js';
+// 改変箇所
+// } from '../../../build/three.module.js';
+
 
 // This set of controls performs orbiting, dollying (zooming), and panning.
 // Unlike TrackballControls, it maintains the "up" direction object.up (+Y by default).
