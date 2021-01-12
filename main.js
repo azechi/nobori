@@ -1,3 +1,7 @@
+// 参考にした https://raw.githubusercontent.com/mrdoob/three.js/bbc05ad6538e7014c81008d766f1b742b2cdfdbc/examples/webgl_animation_cloth.html
+// 参考にしたファイルのライセンス 
+// Copyright © 2010-2021 three.js authors 
+// https://raw.githubusercontent.com/mrdoob/three.js/75406c631355980994186c84316c606140ac045c/LICENSE
 
 import * as THREE from 'three';
 
