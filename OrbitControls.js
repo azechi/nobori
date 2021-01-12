@@ -2,7 +2,7 @@
 // Copyright © 2010-2021 three.js authors 
 // https://raw.githubusercontent.com/mrdoob/three.js/75406c631355980994186c84316c606140ac045c/LICENSE
 
-// 改変した
+// 改変あり
 
 import {
 	EventDispatcher,
@@ -12,6 +12,8 @@ import {
 	TOUCH,
 	Vector2,
 	Vector3
+/* 改変箇所 */
+// } from '../../../build/three.module.js';
 } from 'three';
 
 // This set of controls performs orbiting, dollying (zooming), and panning.
