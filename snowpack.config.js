@@ -3,6 +3,6 @@ module.exports = {
     public: "/",
   },
   buildOptions: {
-    out: "build/dist",
+    out: "build/docs",
   },
 };
