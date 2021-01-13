@@ -8,10 +8,10 @@
   },
   "author": "",
   "license": "SEE LICENSE IN none",
-  "devDependencies": {
-    "snowpack": "^2.18.5"
-  },
   "dependencies": {
     "three": "^0.124.0"
+  },
+  "devDependencies": {
+    "snowpack": "^3.0.3"
   }
 }
