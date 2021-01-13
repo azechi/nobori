@@ -2,7 +2,7 @@
 // 参考にしたファイルのライセンス
 // Copyright © 2010-2021 three.js authors
 // https://raw.githubusercontent.com/mrdoob/three.js/75406c631355980994186c84316c606140ac045c/LICENSE
- 
+
 import * as THREE from "./_snowpack/pkg/three.js";
 
 import Stats from "./stats.module.js";
@@ -175,7 +175,7 @@ function init() {
   const ctx = canvas.getContext("2d");
   ctx.fillStyle = "rgb(0, 0, 255)";
   ctx.font = "100px serif";
-  ctx.fillText("ああ", 0, canvas.height / 2);
+  ctx.fillText("あああ", 0, canvas.height / 2);
 
   clothTexture = new THREE.Texture(canvas);
   clothTexture.needsUpdate = true;
