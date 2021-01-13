@@ -12,7 +12,7 @@ import {
 	TOUCH,
 	Vector2,
 	Vector3
-} from './web_modules/three.js';
+} from './_snowpack/pkg/three.js';
 // 改変箇所
 // } from '../../../build/three.module.js';
 

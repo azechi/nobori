@@ -3,7 +3,7 @@
 // Copyright © 2010-2021 three.js authors 
 // https://raw.githubusercontent.com/mrdoob/three.js/75406c631355980994186c84316c606140ac045c/LICENSE
 
-import * as THREE from './web_modules/three.js';
+import * as THREE from './_snowpack/pkg/three.js';
 export {Particle}
 
 const DAMPING = 0.03;
