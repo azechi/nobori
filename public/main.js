@@ -25,10 +25,10 @@ const clothFunction = (function () {
   };
 })();
 
-const MASS = 0.1;
+const MASS = 0.2//0.1;
 const cloth = new Cloth(xSegs, ySegs, restDistance, MASS, clothFunction);
 
-const GRAVITY = 981 * 1.4;
+const GRAVITY = 300;//981 * 1.4;
 const gravity = new THREE.Vector3(0, -GRAVITY, 0).multiplyScalar(MASS);
 
 const TIMESTEP = 18 / 1000;
