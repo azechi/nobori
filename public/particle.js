@@ -6,7 +6,7 @@
 import * as THREE from "three";
 export { Particle };
 
-const DAMPING = 0.03;
+const DAMPING = 0.09;
 const DRAG = 1 - DAMPING;
 
 function Particle(x, y, z, mass, clothFunction) {

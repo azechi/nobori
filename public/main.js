@@ -4,38 +4,26 @@
 // https://raw.githubusercontent.com/mrdoob/three.js/75406c631355980994186c84316c606140ac045c/LICENSE
 
 import * as THREE from "three";
-
 import Stats from "./stats.module.js";
-
 import { OrbitControls } from "./OrbitControls.js";
-
 import { Cloth } from "./cloth.js";
 
-/*
- * Cloth Simulation using a relaxed constraints solver
- */
+const restDistance = 15;
+const xSegs = 9;
+const ySegs = 29;
 
-// Suggested Readings
+const clothFunction = (function () {
+  const width = restDistance * xSegs;
+  const height = restDistance * ySegs;
 
-// Advanced Character Physics by Thomas Jakobsen Character
-// http://freespace.virgin.net/hugo.elias/models/m_cloth.htm
-// http://en.wikipedia.org/wiki/Cloth_modeling
-// http://cg.alexandra.dk/tag/spring-mass-system/
-// Real-time Cloth Animation http://www.darwin3d.com/gamedev/articles/col0599.pdf
-
-const restDistance = 25;
-const xSegs = 10;
-const ySegs = 10;
-
-const clothFunction = (function plane(width, height) {
   return function (u, v, target) {
-    const x = (u - 0.5) * width;
-    const y = (v + 0.5) * height;
+    const x = (u - 1) * width;
+    const y = (v - 0.3) * height;
     const z = 0;
 
     target.set(x, y, z);
   };
-})(restDistance * xSegs, restDistance * ySegs);
+})();
 
 const MASS = 0.1;
 const cloth = new Cloth(xSegs, ySegs, restDistance, MASS, clothFunction);
@@ -46,7 +34,6 @@ const gravity = new THREE.Vector3(0, -GRAVITY, 0).multiplyScalar(MASS);
 const TIMESTEP = 18 / 1000;
 const TIMESTEP_SQ = TIMESTEP * TIMESTEP;
 
-let pins = [];
 
 const windForce = new THREE.Vector3(0, 0, 0);
 
@@ -128,10 +115,19 @@ function simulate(now) {
     p.previous.copy(p.original);
   }
 
-  nobori.rotation.y += 0.01;
+  //nobori.rotation.y += 0.01;
 }
 
-pins = [...Array(cloth.w + 1).keys()];
+const pins = [
+  0, 10, 20, 30, 40, 50, 60, 70, 80, 90,
+  100, 110, 120, 130, 140, 150, 160, 170, 180, 190,
+  200, 210, 220, 230, 240, 250, 260, 270, 280,
+  299, 298, 
+  297, 296, 
+  295, 294, 
+  293, 292, 
+  291, 290
+];
 
 let container, stats;
 let camera, scene, renderer;
@@ -167,17 +163,19 @@ function init() {
   scene.add(nobori);
 
   // cloth material
-  const loader = new THREE.TextureLoader();
-  let clothTexture = loader.load("./circuit_pattern.png");
 
   //
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
+
+  ctx.fillStyle = "#ff0000";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
   ctx.fillStyle = "rgb(0, 0, 255)";
   ctx.font = "100px serif";
   ctx.fillText("あ", 0, canvas.height / 2);
 
-  clothTexture = new THREE.Texture(canvas);
+  const clothTexture = new THREE.Texture(canvas);
   clothTexture.needsUpdate = true;
   //
   clothTexture.anisotropy = 16;
@@ -212,7 +210,7 @@ function init() {
 
   // poles
 
-  const poleGeo = new THREE.BoxBufferGeometry(5, 375, 5);
+  const poleGeo = new THREE.BoxGeometry(5, 375, 5);
   const poleMat = new THREE.MeshLambertMaterial();
 
   let mesh = new THREE.Mesh(poleGeo, poleMat);
@@ -220,33 +218,39 @@ function init() {
   mesh.position.y = -62;
   mesh.receiveShadow = true;
   mesh.castShadow = true;
-  //scene.add( mesh );
-  nobori.add(mesh);
+  ////scene.add( mesh );
+  //nobori.add(mesh);
 
   // ポールの横棒
-  mesh = new THREE.Mesh(new THREE.BoxBufferGeometry(255, 5, 5), poleMat);
+  mesh = new THREE.Mesh(new THREE.BoxGeometry(255, 5, 5), poleMat);
   mesh.position.y = -250 + 750 / 2;
   mesh.position.x = 125;
   mesh.receiveShadow = true;
   mesh.castShadow = true;
-  //scene.add( mesh );
-  nobori.add(mesh);
+  ////scene.add( mesh );
+  //nobori.add(mesh);
 
   // ポールの台
-  const gg = new THREE.BoxBufferGeometry(10, 10, 10);
+  const gg = new THREE.BoxGeometry(10, 10, 10);
   mesh = new THREE.Mesh(gg, poleMat);
   mesh.position.y = -250;
   mesh.position.x = 125;
   mesh.receiveShadow = true;
+  //
+  if (typeof TESTING !== "undefined") {
+    for (let i = 0; i < 50; i++) {
+      simulate(500 - 10 * i);
+    }
+  }
   mesh.castShadow = true;
-  scene.add(mesh);
+  //scene.add(mesh);
 
   mesh = new THREE.Mesh(gg, poleMat);
   mesh.position.y = -250;
   mesh.position.x = -125;
   mesh.receiveShadow = true;
   mesh.castShadow = true;
-  scene.add(mesh);
+  //scene.add(mesh);
 
   // renderer
 
@@ -273,12 +277,6 @@ function init() {
 
   window.addEventListener("resize", onWindowResize, false);
 
-  //
-  if (typeof TESTING !== "undefined") {
-    for (let i = 0; i < 50; i++) {
-      simulate(500 - 10 * i);
-    }
-  }
 } // init
 
 //
