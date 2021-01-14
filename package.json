@@ -12,6 +12,6 @@
     "three": "^0.124.0"
   },
   "devDependencies": {
-    "snowpack": "^3.0.3"
+    "snowpack": "^3"
   }
 }
