@@ -1,14 +1,13 @@
 // 参考にした https://raw.githubusercontent.com/mrdoob/three.js/bbc05ad6538e7014c81008d766f1b742b2cdfdbc/examples/webgl_animation_cloth.html
-// 参考にしたファイルのライセンス 
-// Copyright © 2010-2021 three.js authors 
+// 参考にしたファイルのライセンス
+// Copyright © 2010-2021 three.js authors
 // https://raw.githubusercontent.com/mrdoob/three.js/75406c631355980994186c84316c606140ac045c/LICENSE
 
-import * as THREE from './_snowpack/pkg/three.js';
-import {Particle} from './particle.js'
-export {Cloth};
+import * as THREE from "./_snowpack/pkg/three.js";
+import { Particle } from "./particle.js";
+export { Cloth };
 
-function Cloth( w, h, restDistance, mass, clothFunction ) {
-
+function Cloth(w, h, restDistance, mass, clothFunction) {
   w = w || 10;
   h = h || 10;
   this.w = w;
@@ -18,68 +17,51 @@ function Cloth( w, h, restDistance, mass, clothFunction ) {
   const constraints = [];
 
   // Create particles
-  for ( let v = 0; v <= h; v ++ ) {
-
-    for ( let u = 0; u <= w; u ++ ) {
-
-      particles.push(
-        new Particle( u / w, v / h, 0, mass, clothFunction )
-      );
-
+  for (let v = 0; v <= h; v++) {
+    for (let u = 0; u <= w; u++) {
+      particles.push(new Particle(u / w, v / h, 0, mass, clothFunction));
     }
-
   }
 
   // Structural
 
-  for ( let v = 0; v < h; v ++ ) {
+  for (let v = 0; v < h; v++) {
+    for (let u = 0; u < w; u++) {
+      constraints.push([
+        particles[index(u, v)],
+        particles[index(u, v + 1)],
+        restDistance,
+      ]);
 
-    for ( let u = 0; u < w; u ++ ) {
-
-      constraints.push( [
-        particles[ index( u, v ) ],
-        particles[ index( u, v + 1 ) ],
-        restDistance
-      ] );
-
-      constraints.push( [
-        particles[ index( u, v ) ],
-        particles[ index( u + 1, v ) ],
-        restDistance
-      ] );
-
+      constraints.push([
+        particles[index(u, v)],
+        particles[index(u + 1, v)],
+        restDistance,
+      ]);
     }
-
   }
 
-  for ( let u = w, v = 0; v < h; v ++ ) {
-
-    constraints.push( [
-      particles[ index( u, v ) ],
-      particles[ index( u, v + 1 ) ],
-      restDistance
-
-    ] );
-
+  for (let u = w, v = 0; v < h; v++) {
+    constraints.push([
+      particles[index(u, v)],
+      particles[index(u, v + 1)],
+      restDistance,
+    ]);
   }
 
-  for ( let v = h, u = 0; u < w; u ++ ) {
-
-    constraints.push( [
-      particles[ index( u, v ) ],
-      particles[ index( u + 1, v ) ],
-      restDistance
-    ] );
-
+  for (let v = h, u = 0; u < w; u++) {
+    constraints.push([
+      particles[index(u, v)],
+      particles[index(u + 1, v)],
+      restDistance,
+    ]);
   }
-
 
   // While many systems use shear and bend springs,
   // the relaxed constraints model seems to be just fine
   // using structural springs.
   // Shear
   // const diagonalDist = Math.sqrt(restDistance * restDistance * 2);
-
 
   // for (v=0;v<h;v++) {
   // 	for (u=0;u<w;u++) {
@@ -99,16 +81,12 @@ function Cloth( w, h, restDistance, mass, clothFunction ) {
   // 	}
   // }
 
-
   this.particles = particles;
   this.constraints = constraints;
 
-  function index( u, v ) {
-
-    return u + v * ( w + 1 );
-
+  function index(u, v) {
+    return u + v * (w + 1);
   }
 
   this.index = index;
-
 } //Cloth
