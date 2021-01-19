@@ -166,14 +166,21 @@ function init() {
 
   //
   const canvas = document.createElement("canvas");
+  canvas.height = 600;
+  canvas.width = 200;
   const ctx = canvas.getContext("2d");
 
-  ctx.fillStyle = "#ff0000";
+  ctx.fillStyle = "rgb(242, 243, 245)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = "rgb(0, 0, 255)";
-  ctx.font = "100px serif";
-  ctx.fillText("あ", 0, canvas.height / 2);
+  ctx.fillStyle = "rgb(255, 0, 0)";
+  ctx.font = "bold 120px sans-serif";
+  const m = ctx.measureText("あ");
+  const w = (canvas.width - m.width) / 2;
+  ctx.fillText("焼", w, 140);
+  ctx.fillText("肉", w, 260);
+  ctx.fillText("定", w, 380);
+  ctx.fillText("食", w, 500);
 
   const clothTexture = new THREE.Texture(canvas);
   clothTexture.needsUpdate = true;
